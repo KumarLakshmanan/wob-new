@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Wob',
       theme: ThemeData(
         primaryColor: design.light.primary,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primarySwatch: primaryColor,
       ),
       color: design.light.primary,
       home: const Splash(),

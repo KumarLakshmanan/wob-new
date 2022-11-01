@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 MaterialColor primaryColor = const MaterialColor(
-  0xFFFFC93E,
+  0xFF482D92,
   <int, Color>{
-    50: Color(0xFFFAAB1B),
-    100: Color(0xFFFFCC4B),
-    200: Color(0xFFFFD059),
-    300: Color(0xFFFFD467),
-    400: Color(0xFFFFD875),
-    500: Color(0xFFFFDC82),
-    600: Color(0xFFFFE090),
-    700: Color(0xFFFFE49E),
-    800: Color(0xFFFFE7AC),
-    900: Color(0xFFFFEBBA),
+    50: Color(0xFF482D92),
+    100: Color(0xFF482D92),
+    200: Color(0xFF482D92),
+    300: Color(0xFF482D92),
+    400: Color(0xFF482D92),
+    500: Color(0xFF482D92),
+    600: Color(0xFF482D92),
+    700: Color(0xFF482D92),
+    800: Color(0xFF482D92),
+    900: Color(0xFF482D92),
   },
 );
 

@@ -70,14 +70,14 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: GetBuilder(
         init: NController(),
         builder: (controller) {
-          return CustomPaint(
-            painter: BottomBarCurve(),
-            child: Container(
-              height: kBottomNavigationBarHeight + 10,
-              decoration: BoxDecoration(
-                gradient: dc.darkMode ? design.dark.gradient2 : null,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+          return Container(
+            height: kBottomNavigationBarHeight + 10,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: CustomPaint(
+              painter: BottomBarCurve(),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -87,10 +87,6 @@ class _MainScreenState extends State<MainScreen> {
                       "assets/icons/home.png",
                     ),
                     onPressed: () {
-                      // nc.currentPage = 0;
-                      // nc.pageController.animateToPage(0,
-                      //     duration: animationDuration, curve: Curves.easeInOut);
-                      // nc.update();
                     },
                   ),
                   IconButton(
@@ -98,10 +94,7 @@ class _MainScreenState extends State<MainScreen> {
                       "assets/icons/scan.png",
                     ),
                     onPressed: () {
-                      // nc.currentPage = 1;
-                      // nc.pageController.animateToPage(1,
-                      //     duration: animationDuration, curve: Curves.easeInOut);
-                      // nc.update();
+                     
                     },
                   ),
                   IconButton(
@@ -109,10 +102,7 @@ class _MainScreenState extends State<MainScreen> {
                       "assets/icons/alcoverse.png",
                     ),
                     onPressed: () {
-                      // nc.currentPage = 2;
-                      // nc.pageController.animateToPage(2,
-                      //     duration: animationDuration, curve: Curves.easeInOut);
-                      // nc.update();
+                     
                     },
                   ),
                   const SizedBox(width: 40),

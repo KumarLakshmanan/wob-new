@@ -31,9 +31,9 @@ class _LogInScreenState extends State<LogInScreen> {
                 top: MediaQuery.of(context).size.height * 0.068, //50
                 child: Row(
                   children: [
-                    Image.asset("assets/flag.png"),
+                    Image.asset("assets/images/flag.png"),
                     Container(
-                      padding: EdgeInsets.only(left: 10),
+                      padding: const EdgeInsets.only(left: 10),
                       width: 250,
                       child: TextField(
                         controller: phoneControler,

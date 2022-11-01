@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:wob/constants.dart';
-import 'package:wob/painter/card.dart';
 
 class OfferItemCard extends StatefulWidget {
   final String title;
@@ -67,7 +64,8 @@ class _OfferItemCardState extends State<OfferItemCard> {
             ),
           ),
           Positioned(
-            right: (-(("Limited Period Offer".length * 12 / 2)).toDouble()) + 15,
+            right:
+                (-(("Limited Period Offer".length * 12 / 2)).toDouble()) + 15,
             top: 40,
             child: Transform(
               transform: Matrix4.rotationZ(1.5708),
@@ -100,36 +98,68 @@ class _OfferItemCardState extends State<OfferItemCard> {
               ),
             ),
           ),
-          Positioned(
-            child: Center(
-              child: Container(
-                height: 40,
-                width: 40,
-                decoration:const  BoxDecoration(
-                  color: Color(0xFF482D92),
-                  shape: BoxShape.circle,
+          if (!widget.claimOffer)
+            Positioned(
+              child: Center(
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF482D92),
+                    shape: BoxShape.circle,
+                  ),
                 ),
               ),
+              bottom: 50,
+              left: -20,
+              top: 0,
             ),
-            bottom: 50,
-            left: -20,
-            top: 0,
-          ),
-          Positioned(
-            child: Center(
-              child: Container(
-                height: 40,
-                width: 40,
-                decoration:const  BoxDecoration(
-                  color: Color(0xFF482D92),
-                  shape: BoxShape.circle,
+          if (!widget.claimOffer)
+            Positioned(
+              child: Center(
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF482D92),
+                    shape: BoxShape.circle,
+                  ),
                 ),
               ),
+              bottom: 50,
+              right: -20,
+              top: 0,
             ),
-            bottom: 50,
-            right: -20,
-            top: 0,
-          ),
+          if (widget.claimOffer)
+            Positioned(
+              child: SizedBox(
+                height: 35,
+                width: 120,
+                child: MaterialButton(
+                  onPressed: () {},
+                  color: const Color(0xFF482D92),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(40),
+                    ),
+                    side: BorderSide(
+                      color: Color(0xFFFFFFFF),
+                    ),
+                  ),
+                  child: const Text(
+                    "Claim Offer",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontFamily: 'Gilroy',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+              bottom: -18,
+              left: 10,
+            ),
         ],
       ),
     );

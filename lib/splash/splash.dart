@@ -1,17 +1,8 @@
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:location/location.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wob/controller/data_controller.dart';
-import 'package:wob/home/newhome.dart';
-import 'package:wob/lottery/jackpot.dart';
-import 'package:http/http.dart' as http;
 import 'package:wob/main/mainscreen.dart';
+import 'package:wob/screens/onboarding.dart';
 
 class Splash extends StatefulWidget {
   final bool isLogOut;
@@ -63,6 +54,7 @@ class _SplashState extends State<Splash> {
       // }
       Get.to(
         const MainScreen(),
+        // const OnboardingScreen(),
         transition: Transition.rightToLeft,
       );
     });
