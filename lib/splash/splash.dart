@@ -41,20 +41,9 @@ class _SplashState extends State<Splash> {
       // final prefs = await SharedPreferences.getInstance();
       // print(prefs.getInt("distance"));
       // print(prefs.getInt("emptyReq"));
-      // if (prefs.getBool("isLoggedIn") ?? false) {
-      //   Get.to(
-      //     const GoogleMapScreen(),
-      //     transition: Transition.rightToLeft,
-      //   );
-      // } else {
-      //   Get.to(
-      //     const OnBoarding(),
-      //     transition: Transition.rightToLeft,
-      //   );
-      // }
       Get.to(
-        const MainScreen(),
-        // const OnboardingScreen(),
+        // const MainScreen(),
+        const OnboardingScreen(),
         transition: Transition.rightToLeft,
       );
     });
