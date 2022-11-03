@@ -15,25 +15,22 @@ class _LogInScreenState extends State<LogInScreen> {
   final phoneControler = TextEditingController();
   Color otpBgColor = const Color(0xFF979797);
   setUpBgColor() {
-    if (phoneControler.text.length == 10) {
-      if (value == true) {
-        otpBgColor = const Color(0xFF482482);
+    setState(() {
+      if (phoneControler.text.length == 10) {
+        if (value == true) {
+          otpBgColor = const Color(0xFF482482);
+        } else {
+          otpBgColor = const Color(0xFF979797);
+        }
       } else {
         otpBgColor = const Color(0xFF979797);
       }
-    } else {
-      setState(() {
-        otpBgColor = const Color(0xFF979797);
-      });
-    }
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    phoneControler.addListener(() {
-      setUpBgColor();
-    });
   }
 
   @override
@@ -54,7 +51,9 @@ class _LogInScreenState extends State<LogInScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Center(child: Image.asset("assets/images/flag.png", width: 30)),
+                    Center(
+                        child:
+                            Image.asset("assets/images/flag.png", width: 30)),
                     Container(
                       padding: const EdgeInsets.only(left: 10),
                       width: 250,
@@ -68,6 +67,9 @@ class _LogInScreenState extends State<LogInScreen> {
                           color: Colors.black,
                           fontSize: 18,
                         ),
+                        onChanged: (value) {
+                          setUpBgColor();
+                        },
                         decoration: const InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),

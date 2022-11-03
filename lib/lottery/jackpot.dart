@@ -35,7 +35,7 @@ class _JackPotState extends State<JackPot> {
   }
 
   animateListView() {
-    Future.delayed(const Duration(milliseconds: 1), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       scrollController1.animateTo(
         Random().nextInt(100) * (slotSize),
         curve: Curves.easeInOut,
@@ -73,6 +73,7 @@ class _JackPotState extends State<JackPot> {
       fit: StackFit.expand,
       children: [
         Scaffold(
+          extendBodyBehindAppBar: true,
           backgroundColor: const Color(0xFF482D92),
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -231,13 +232,13 @@ class _JackPotState extends State<JackPot> {
                         ),
                       ),
                       Positioned(
-                        bottom: machineHeight * 0.05,
+                        bottom: (machineHeight * 0.10) / 2,
                         left: 0,
                         right: 0,
                         child: Center(
                           child: SizedBox(
                             width: machineWidth * 0.3,
-                            height: 20,
+                            height: (machineHeight * 0.062),
                             child: MaterialButton(
                               elevation: 0,
                               focusElevation: 0,
