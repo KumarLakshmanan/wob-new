@@ -42,8 +42,8 @@ class _SplashState extends State<Splash> {
       // print(prefs.getInt("distance"));
       // print(prefs.getInt("emptyReq"));
       Get.to(
-        const MainScreen(),
-        // const OnboardingScreen(),
+        // const MainScreen(),
+        const OnboardingScreen(),
         transition: Transition.rightToLeft,
       );
     });

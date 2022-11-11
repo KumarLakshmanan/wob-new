@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wob/onboarding/welcome.dart';
 import 'package:wob/widgets/button.dart';
 
 import '../../constants.dart';
@@ -149,10 +148,10 @@ class _OtpState extends State<Otp> {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool("isLoggedIn", true);
       print("Logged in");
-      Get.to(
-        const Welcome(),
-        transition: Transition.rightToLeft,
-      );
+      // Get.to(
+      //   const Welcome(),
+      //   transition: Transition.rightToLeft,
+      // );
     } else {
       errorController!.add(ErrorAnimationType.shake);
     }

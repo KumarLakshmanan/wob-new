@@ -12,6 +12,31 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  int timer = 60;
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  startTimer() {
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {
+        if (timer > 0) {
+          timer--;
+        }
+      });
+      startTimer();
+    });
+  }
+
+  resendOtp() {
+    setState(() {
+      timer = 60;
+    });
+    startTimer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +50,7 @@ class _OtpScreenState extends State<OtpScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Enter OTP\nSent to +91 " + widget.phone,
+                "enter OTP \nsent  to +91 " + widget.phone,
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
@@ -72,16 +97,35 @@ class _OtpScreenState extends State<OtpScreen> {
                 },
               ),
               Row(
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     "Don't receive secure code?",
                     style: TextStyle(fontSize: 12),
                   ),
-                  Text(
-                    " Resent otp in 00:49",
-                    style:
-                        TextStyle(fontSize: 12, color: const Color(0xFF482D92)),
-                  )
+                  if (timer == 0)
+                    InkWell(
+                      onTap: () {
+                        resendOtp();
+                      },
+                      child: const Text(
+                        " Resend",
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF482D92)),
+                      ),
+                    ),
+                  if (timer > 0)
+                    Text(
+                      " Resend otp in 00:" +
+                          (timer > 9
+                              ? timer.toString()
+                              : "0" + timer.toString()),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: Color(0xFF482D92)),
+                    )
                 ],
               ),
               const Spacer(),

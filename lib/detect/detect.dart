@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:wob/constants.dart';
 import 'package:wob/controller/data_controller.dart';
 import 'package:wob/main/mainscreen.dart';
-import 'package:wob/onboarding/welcome.dart';
+// import 'package:wob/onboarding/welcome.dart';
 import 'package:wob/widgets/button.dart';
 
 import '../painters/sprite.dart';
@@ -67,7 +67,7 @@ class _DetectState extends State<Detect> with SingleTickerProviderStateMixin {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Get.offAll(const Welcome(), transition: Transition.leftToRight);
+            // Get.offAll(const Welcome(), transition: Transition.leftToRight);
           },
           icon: Icon(
             Icons.arrow_back_ios_new,

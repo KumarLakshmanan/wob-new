@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wob/screens/otp.dart';
-import 'package:wob/screens/permissions.dart';
+
+import 'permissions.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -36,12 +37,43 @@ class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(25), //25
-        child: Container(
-          padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.width * 0.4,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: null,
+        automaticallyImplyLeading: false,
+        actions: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: InkWell(
+                onTap: () {
+                  Get.to(
+                    const PermissionsScreen(),
+                    transition: Transition.rightToLeft,
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "Skip",
+                    style: TextStyle(
+                      color: Color(0xFF482D92),
+                      fontSize: 14,
+                      decoration: TextDecoration.underline,
+                      decorationStyle: TextDecorationStyle.dotted,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(25),
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height - 40,
           child: Stack(
@@ -52,8 +84,11 @@ class _LogInScreenState extends State<LogInScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Center(
-                        child:
-                            Image.asset("assets/images/flag.png", width: 30)),
+                      child: Image.asset(
+                        "assets/images/flag.png",
+                        width: 30,
+                      ),
+                    ),
                     Container(
                       padding: const EdgeInsets.only(left: 10),
                       width: 250,
@@ -99,7 +134,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 ),
               ),
               const Text(
-                "Enter Phone Number",
+                "enter Phone Number",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
               Positioned(

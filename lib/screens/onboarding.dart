@@ -10,6 +10,8 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  int currentPage = 0;
+  final PageController _pageController = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,27 +46,130 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Image.asset("assets/images/image.png"),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.59,
+                  top: 0,
                   left: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(25),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Get best offers in\nall brands",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: PageView(
+                      controller: _pageController,
+                      onPageChanged: (value) {
+                        setState(() {
+                          currentPage = value;
+                        });
+                      },
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.6,
+                            right: 25,
+                            bottom: 25,
+                            left: 25,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                "Get best offers in\nall brands",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 35,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 6,
+                              ),
+                              Text(
+                                "Everyone is welcome.Everyone has\nsomething to give.",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(
-                          height: 6,
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.59,
+                            right: 25,
+                            bottom: 25,
+                            left: 25,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                "Get best offers in\nall brands",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 35,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 6,
+                              ),
+                              Text(
+                                "Everyone is welcome.Everyone has\nsomething to give.",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
-                        Text(
-                          "Everyone is welcome.Everyone has\nsomething to give.",
-                          style: TextStyle(color: Colors.white),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.59,
+                            right: 25,
+                            bottom: 25,
+                            left: 25,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                "Get best offers in\nall brands",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 35,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 6,
+                              ),
+                              Text(
+                                "Everyone is welcome.Everyone has\nsomething to give.",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.59,
+                            right: 25,
+                            bottom: 25,
+                            left: 25,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                "Get best offers in\nall brands",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 35,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 6,
+                              ),
+                              Text(
+                                "Everyone is welcome.Everyone has\nsomething to give.",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -125,52 +230,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     width: MediaQuery.of(context).size.width,
                     height: 30,
                     child: Row(
-                      children: const [
-                        Expanded(
-                          child: Divider(
-                            height: 5,
-                            thickness: 5,
-                            color: Color(0xFFFDDD00),
-                            endIndent: 6,
-                            indent: 6,
+                      children: [
+                        for (int i = 0; i < 4; i++)
+                          Expanded(
+                            child: Container(
+                              height: i == currentPage ? 6 : 2,
+                              margin: const EdgeInsets.only(right: 5, left: 5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: i == currentPage
+                                    ? const Color(0xFFFDDD00)
+                                    : const Color(0xFF979797),
+                              ),
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            height: 5,
-                            thickness: 3,
-                            color: Color(0xFF979797),
-                            endIndent: 6,
-                            indent: 6,
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            height: 5,
-                            thickness: 3,
-                            color: Color(0xFF979797),
-                            endIndent: 6,
-                            indent: 6,
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            height: 5,
-                            thickness: 3,
-                            color: Color(0xFF979797),
-                            endIndent: 6,
-                            indent: 6,
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            indent: 6,
-                            height: 5,
-                            thickness: 3,
-                            color: Color(0xFF979797),
-                            endIndent: 6,
-                          ),
-                        ),
                       ],
                     ),
                   ),

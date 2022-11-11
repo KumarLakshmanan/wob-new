@@ -287,7 +287,7 @@ class _JackPotState extends State<JackPot> {
                                 });
                               },
                               child: Text(
-                                'TAB TO SPIN',
+                                'TAP TO SPIN',
                                 style: TextStyle(
                                   color: design.light.textcolor,
                                   fontSize: 12,
