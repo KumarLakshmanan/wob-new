@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -79,6 +80,9 @@ class _OtpScreenState extends State<OtpScreen> {
                 enableActiveFill: false,
                 onCompleted: (v) {},
                 keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
                 textInputAction: TextInputAction.done,
                 onSubmitted: (value) {
                   Get.to(
@@ -104,15 +108,12 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                 onChanged: (value) async {
                   if (value.length == 6) {
-                    if (value == "999999")
-                    {
+                    if (value == "999999") {
                       Get.to(
                         const PermissionsScreen(),
                         transition: Transition.zoom,
                       );
-                    }
-                    else
-                    {
+                    } else {
                       // http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=919043561720&otp=999999
                       var res = await http.get(Uri.parse(
                           "http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=91${widget.phone}&otp=$value"));
