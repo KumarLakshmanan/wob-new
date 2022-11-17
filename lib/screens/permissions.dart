@@ -13,6 +13,41 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        leading: null,
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        actions: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: InkWell(
+                onTap: () {
+                  Get.to(
+                    const PermissionsScreen(),
+                    transition: Transition.rightToLeft,
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "Deny Permissions",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      decoration: TextDecoration.underline,
+                      decorationStyle: TextDecorationStyle.dotted,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -26,141 +61,118 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
             end: Alignment.centerRight,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: Stack(
           children: [
-            AppBar(
-              leading: null,
-              automaticallyImplyLeading: false,
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              actions: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: InkWell(
-                      onTap: () {
-                        Get.to(
-                          const PermissionsScreen(),
-                          transition: Transition.rightToLeft,
-                        );
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Deny Permissions",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            decoration: TextDecoration.underline,
-                            decorationStyle: TextDecorationStyle.dotted,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+            ListView(
+              shrinkWrap: true,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "we take the following permissions",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
+                PermissionCard(
+                  image: "assets/images/phone.png",
+                  title: "phone state permission",
+                  subTitle:
+                      "we need this permission to ensure the SIM card in your phone and your registered phone number match",
+                  ontap: () {},
+                ),
+                Container(
+                  height: 20,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        const Color(0xFF101112).withOpacity(0.2),
+                        const Color(0xFF212426).withOpacity(0),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                ),
+                PermissionCard(
+                  image: "assets/images/location.png",
+                  title: "location permission ",
+                  subTitle:
+                      "we need this permission to intelligently surface location specific rewards and alerts",
+                  ontap: () {},
+                ),
+                Container(
+                  height: 20,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        const Color(0xFF101112).withOpacity(0.2),
+                        const Color(0xFF212426).withOpacity(0),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
               ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "we take the following permissions",
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            PermissionCard(
-              image: "assets/images/phone.png",
-              title: "phone state permission",
-              subTitle:
-                  "we need this permission to ensure the SIM card in your phone and your registered phone number match",
-              ontap: () {},
-            ),
-            Container(
-              height: 20,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    const Color(0xFF101112).withOpacity(0.2),
-                    const Color(0xFF212426).withOpacity(0),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-            ),
-            PermissionCard(
-              image: "assets/images/location.png",
-              title: "location permission ",
-              subTitle:
-                  "we need this permission to intelligently surface location specific rewards and alerts",
-              ontap: () {},
-            ),
-            Container(
-              height: 20,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    const Color(0xFF101112).withOpacity(0.2),
-                    const Color(0xFF212426).withOpacity(0),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-            ),
-            const Spacer(),
-            Container(
-              width: MediaQuery.of(context).size.width - 50,
-              height: MediaQuery.of(context).size.height * 0.083, //60
-              decoration: BoxDecoration(
-                color: const Color(0xFFFAAB1B),
-                borderRadius: BorderRadius.circular(
-                  60,
-                ),
-              ),
-              child: InkWell(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      "Grant Permision",
-                      style: TextStyle(
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: InkWell(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFAAB1B),
+                      borderRadius: BorderRadius.circular(
+                        60,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          "Grant Permision",
+                          style: TextStyle(
+                              color: Color(0xFF482482),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Icon(
+                          Icons.arrow_forward,
                           color: Color(0xFF482482),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700),
+                        )
+                      ],
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Icon(
-                      Icons.arrow_forward,
-                      color: Color(0xFF482482),
-                    )
-                  ],
+                  ),
+                  onTap: () {
+                    Get.to(
+                      const MainScreen(),
+                      transition: Transition.rightToLeft,
+                    );
+                  },
                 ),
-                onTap: () {
-                  Get.to(
-                    const MainScreen(),
-                    transition: Transition.rightToLeft,
-                  );
-                },
               ),
-            ),
-            const SizedBox(
-              height: 20,
             ),
           ],
         ),
