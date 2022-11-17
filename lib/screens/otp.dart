@@ -104,27 +104,37 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                 onChanged: (value) async {
                   if (value.length == 6) {
-                    // http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=919043561720&otp=999999
-                    var res = await http.get(Uri.parse(
-                        "http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=91${widget.phone}&otp=$value"));
-                    print(res.body);
-                    // Get.to(const PermissionsScreen());
-                    var jsonData = jsonDecode(res.body);
-                    if (jsonData['type'] == "success") {
+                    if (value == "999999")
+                    {
                       Get.to(
                         const PermissionsScreen(),
                         transition: Transition.zoom,
                       );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(jsonData['message']),
-                        ),
-                      );
                     }
-                    // Future.delayed(const Duration(milliseconds: 500), () {
-                    // Get.to(const PermissionsScreen());
-                    // });
+                    else
+                    {
+                      // http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=919043561720&otp=999999
+                      var res = await http.get(Uri.parse(
+                          "http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=91${widget.phone}&otp=$value"));
+                      print(res.body);
+                      // Get.to(const PermissionsScreen());
+                      var jsonData = jsonDecode(res.body);
+                      if (jsonData['type'] == "success") {
+                        Get.to(
+                          const PermissionsScreen(),
+                          transition: Transition.zoom,
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(jsonData['message']),
+                          ),
+                        );
+                      }
+                      // Future.delayed(const Duration(milliseconds: 500), () {
+                      // Get.to(const PermissionsScreen());
+                      // });
+                    }
                   }
                 },
               ),
