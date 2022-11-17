@@ -32,7 +32,11 @@ class _SplashState extends State<Splash> {
   Future _checkLogin() async {
     await Future.delayed(const Duration(milliseconds: 500));
     setState(() {
-      _width = MediaQuery.of(context).size.width * 0.7;
+      var isPortrait =
+          MediaQuery.of(context).orientation == Orientation.portrait;
+      _width = isPortrait
+          ? MediaQuery.of(context).size.width * 0.8
+          : MediaQuery.of(context).size.width * 0.4;
     });
     await Future.delayed(const Duration(seconds: 2));
     Map<String, dynamic> storeDetails = {};

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -53,135 +54,171 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 50),
-        child: Container(
-          padding: const EdgeInsets.all(25),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "enter OTP \nsent  to +91 " + widget.phone,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              PinCodeTextField(
-                appContext: context,
-                length: 6,
-                obscureText: false,
-                animationType: AnimationType.scale,
-                animationDuration: const Duration(milliseconds: 200),
-                enableActiveFill: false,
-                onCompleted: (v) {},
-                keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                textInputAction: TextInputAction.done,
-                onSubmitted: (value) {
-                  Get.to(
-                    const PermissionsScreen(),
-                    transition: Transition.zoom,
-                  );
-                },
-                cursorColor: Colors.black,
-                textStyle: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 25,
-                ),
-                pinTheme: PinTheme(
-                  shape: PinCodeFieldShape.underline,
-                  fieldHeight: 60,
-                  fieldWidth: 50,
-                  inactiveFillColor: Colors.black,
-                  activeColor: Colors.black,
-                  inactiveColor: Colors.black,
-                  selectedColor: Colors.black,
-                  borderWidth: 1,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                onChanged: (value) async {
-                  if (value.length == 6) {
-                    if (value == "999999") {
-                      Get.to(
-                        const PermissionsScreen(),
-                        transition: Transition.zoom,
-                      );
-                    } else {
-                      // http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=919043561720&otp=999999
-                      var res = await http.get(Uri.parse(
-                          "http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=91${widget.phone}&otp=$value"));
-                      print(res.body);
-                      // Get.to(const PermissionsScreen());
-                      var jsonData = jsonDecode(res.body);
-                      if (jsonData['type'] == "success") {
-                        Get.to(
-                          const PermissionsScreen(),
-                          transition: Transition.zoom,
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(jsonData['message']),
-                          ),
-                        );
-                      }
-                      // Future.delayed(const Duration(milliseconds: 500), () {
-                      // Get.to(const PermissionsScreen());
-                      // });
-                    }
-                  }
-                },
-              ),
-              Row(
-                children: [
-                  const Text(
-                    "Don't receive secure code?",
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  if (timer == 0)
-                    InkWell(
-                      onTap: () async {
-                        await resendOtp();
-                      },
-                      child: const Text(
-                        " Resend",
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF482D92)),
+    var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.only(
+            left: 18,
+            right: 18,
+            top: 18 + MediaQuery.of(context).padding.top,
+            bottom: 18,
+          ),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: isPortrait ? 60 : 0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "enter OTP \nsent  to +91 " + widget.phone,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 25),
                       ),
-                    ),
-                  if (timer > 0)
-                    Text(
-                      " Resend otp in 00:" +
-                          (timer > 9
-                              ? timer.toString()
-                              : "0" + timer.toString()),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          color: Color(0xFF482D92)),
-                    )
-                ],
-              ),
-              const Spacer(),
-              const Center(
-                child: Text(
-                  "By continuing, you agree to our Terms & Conditions",
-                  style: TextStyle(color: Color(0xFF979797), fontSize: 11),
+                      if (isPortrait)
+                        const SizedBox(
+                          height: 30,
+                        ),
+                      PinCodeTextField(
+                        appContext: context,
+                        length: 6,
+                        obscureText: false,
+                        animationType: AnimationType.scale,
+                        animationDuration: const Duration(milliseconds: 200),
+                        enableActiveFill: false,
+                        onCompleted: (v) {},
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        textInputAction: TextInputAction.done,
+                        onSubmitted: (value) {
+                          Get.to(
+                            const PermissionsScreen(),
+                            transition: Transition.zoom,
+                          );
+                        },
+                        cursorColor: Colors.black,
+                        textStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 25,
+                        ),
+                        pinTheme: PinTheme(
+                          shape: PinCodeFieldShape.underline,
+                          fieldHeight: isPortrait ? 40 : 60,
+                          fieldWidth:
+                              MediaQuery.of(context).size.width / 6 - 15,
+                          inactiveFillColor: Colors.black,
+                          activeColor: Colors.black,
+                          inactiveColor: Colors.black,
+                          selectedColor: Colors.black,
+                          borderWidth: 1,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        onChanged: (value) async {
+                          if (value.length == 6) {
+                            if (value == "999999") {
+                              Get.to(
+                                const PermissionsScreen(),
+                                transition: Transition.zoom,
+                              );
+                            } else {
+                              // http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=919043561720&otp=999999
+                              var res = await http.get(Uri.parse(
+                                  "http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=91${widget.phone}&otp=$value"));
+                              print(res.body);
+                              // Get.to(const PermissionsScreen());
+                              var jsonData = jsonDecode(res.body);
+                              if (jsonData['type'] == "success") {
+                                Get.to(
+                                  const PermissionsScreen(),
+                                  transition: Transition.zoom,
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(jsonData['message']),
+                                  ),
+                                );
+                              }
+                              // Future.delayed(const Duration(milliseconds: 500), () {
+                              // Get.to(const PermissionsScreen());
+                              // });
+                            }
+                          }
+                        },
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            "Don't receive secure code?",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                          if (timer == 0)
+                            InkWell(
+                              onTap: () async {
+                                await resendOtp();
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  " Resend",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF482D92)),
+                                ),
+                              ),
+                            ),
+                          if (timer > 0)
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                " Resend otp in 00:" +
+                                    (timer > 9
+                                        ? timer.toString()
+                                        : "0" + timer.toString()),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: Color(0xFF482D92)),
+                              ),
+                            )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: KeyboardVisibilityBuilder(
+                    builder: (p0, isKeyboardVisible) {
+                      return isKeyboardVisible && !isPortrait
+                          ? const SizedBox.shrink()
+                          : const Center(
+                              child: Text(
+                                "By continuing, you agree to our Terms & Conditions",
+                                style: TextStyle(
+                                    color: Color(0xFF979797), fontSize: 11),
+                              ),
+                            );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

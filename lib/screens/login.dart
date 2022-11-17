@@ -46,53 +46,57 @@ class _LogInScreenState extends State<LogInScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: null,
-          automaticallyImplyLeading: false,
-          // actions: [
-          //   Center(
-          //     child: Padding(
-          //       padding: const EdgeInsets.only(right: 10),
-          //       child: InkWell(
-          //         onTap: () {
-          //           Get.to(
-          //             const PermissionsScreen(),
-          //             transition: Transition.rightToLeft,
-          //           );
-          //         },
-          //         child: const Padding(
-          //           padding: EdgeInsets.all(8.0),
-          //           child: Text(
-          //             "Skip",
-          //             style: TextStyle(
-          //               color: Color(0xFF482D92),
-          //               fontSize: 14,
-          //               decoration: TextDecoration.underline,
-          //               decorationStyle: TextDecorationStyle.dotted,
-          //               fontWeight: FontWeight.bold,
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ],
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: Colors.transparent,
+        //   elevation: 0,
+        //   leading: null,
+        //   automaticallyImplyLeading: false,
+        //   actions: [
+        //     Center(
+        //       child: Padding(
+        //         padding: const EdgeInsets.only(right: 10),
+        //         child: InkWell(
+        //           onTap: () {
+        //             Get.to(
+        //               const PermissionsScreen(),
+        //               transition: Transition.rightToLeft,
+        //             );
+        //           },
+        //           child: const Padding(
+        //             padding: EdgeInsets.all(8.0),
+        //             child: Text(
+        //               "Skip",
+        //               style: TextStyle(
+        //                 color: Color(0xFF482D92),
+        //                 fontSize: 14,
+        //                 decoration: TextDecoration.underline,
+        //                 decorationStyle: TextDecorationStyle.dotted,
+        //                 fontWeight: FontWeight.bold,
+        //               ),
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
         body: Padding(
-          padding: const EdgeInsets.all(25),
+          padding: EdgeInsets.only(
+            left: 18,
+            right: 18,
+            top: 18 + MediaQuery.of(context).padding.top,
+            bottom: 18,
+          ),
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height - 40,
+            height: MediaQuery.of(context).size.height,
             child: Stack(
+              fit: StackFit.expand,
               children: [
                 Positioned(
                   left: 0,
                   right: 0,
-                  top: !isPortrait
-                      ? 0
-                      : MediaQuery.of(context).size.height * 0.068,
+                  top: isPortrait ? 60 : 0,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +165,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   ),
                 ),
                 Positioned(
-                  bottom: MediaQuery.of(context).size.height * 0.0132, //10
+                  bottom: 0,
                   child: KeyboardVisibilityBuilder(
                     builder: (p0, isKeyboardVisible) {
                       return isKeyboardVisible && !isPortrait
