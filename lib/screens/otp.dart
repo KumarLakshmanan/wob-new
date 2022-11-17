@@ -33,7 +33,17 @@ class _OtpScreenState extends State<OtpScreen> {
     });
   }
 
-  resendOtp() {
+  resendOtp() async {
+    // http://api.msg91.com/api/retryotp.php?authkey=384899A1E1CbhM636def3bP1&mobile=9043561720&retrytype=text
+    var res = await http.get(Uri.parse(
+        'http://api.msg91.com/api/retryotp.php?authkey=384899A1E1CbhM636def3bP1&mobile=${widget.phone}&retrytype=text'));
+    print(res.body);
+    var jsonData = jsonDecode(res.body);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(jsonData['message']),
+      ),
+    );
     setState(() {
       timer = 60;
     });
@@ -126,8 +136,8 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                   if (timer == 0)
                     InkWell(
-                      onTap: () {
-                        resendOtp();
+                      onTap: () async {
+                        await resendOtp();
                       },
                       child: const Text(
                         " Resend",
