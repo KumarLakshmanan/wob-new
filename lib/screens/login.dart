@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:wob/screens/otp.dart';
 
 import 'permissions.dart';
@@ -134,7 +137,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 ),
               ),
               const Text(
-                "enter Phone Number",
+                "enter phone number",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
               Positioned(
@@ -189,15 +192,22 @@ class _LogInScreenState extends State<LogInScreen> {
                         )
                       ],
                     ),
-                    onTap: () {
+                    onTap: () async {
                       if (phoneControler.text.length == 10) {
                         if (value == true) {
-                          Get.to(
-                            OtpScreen(
-                              phone: phoneControler.text,
-                            ),
-                            transition: Transition.zoom,
-                          );
+                          // http://api.msg91.com/api/sendotp.php?authkey=384899A1E1CbhM636def3bP1&mobile=919043561720&sender=SMSIND
+                          var res = await http.get(Uri.parse(
+                              "http://api.msg91.com/api/sendotp.php?authkey=384899A1E1CbhM636def3bP1&mobile=91${phoneControler.text}&sender=SMSIND"));
+                          print(res.body);
+                          var data = jsonDecode(res.body);
+                          if (data["type"] == "success") {
+                            Get.to(
+                              OtpScreen(
+                                phone: phoneControler.text,
+                              ),
+                              transition: Transition.zoom,
+                            );
+                          }
                         }
                       }
                     },

@@ -24,6 +24,7 @@ class _PhoneState extends State<Phone> {
     phoneFocusNode.requestFocus();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -57,7 +58,7 @@ class _PhoneState extends State<Phone> {
             controller: widget.phoneController,
             isPhone: true,
             autoFocus: true,
-            isSubmit: (_){
+            isSubmit: (_) {
               validateForm();
             },
             focusNode: phoneFocusNode,

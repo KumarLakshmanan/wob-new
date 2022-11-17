@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:wob/controller/data_controller.dart';
-import 'package:wob/main/mainscreen.dart';
 import 'package:wob/screens/onboarding.dart';
 
 class Splash extends StatefulWidget {
@@ -34,13 +36,26 @@ class _SplashState extends State<Splash> {
     });
     await Future.delayed(const Duration(seconds: 2));
     Map<String, dynamic> storeDetails = {};
-    // var res = await http.get(Uri.parse("http://nirals.eduniv.in/wob.json"));
-    // storeDetails = json.decode(res.body);
-    // dc.setStoreDetails(storeDetails);
+    var res = await http.post(
+        Uri.parse(
+            "http://13.126.36.241/datasnap/ASBMenuRest.dll/datasnap/rest/TASBMenuREST/login"),
+        body: jsonEncode({
+          "login": {
+            "axpapp": "lmmdm",
+            "username": "guest",
+            "password": "312e7f190310e1c817a125633f88569d",
+            "seed": "1983",
+            "other": "chrome",
+            "trace": "true"
+          }
+        }));
+    print(res.body);
+    String sessionId = jsonDecode(res.body)["result"][0]["result"]['s'];
+    print(sessionId);
     await checkPermissions(() async {
       // final prefs = await SharedPreferences.getInstance();
       // print(prefs.getInt("distance"));
-      // print(prefs.getInt("emptyReq"));
+      // print(prefs.getInt("emptyReq"));`
       Get.to(
         // const MainScreen(),
         const OnboardingScreen(),

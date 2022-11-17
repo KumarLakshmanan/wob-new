@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:wob/screens/permissions.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -59,7 +62,7 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
               PinCodeTextField(
                 appContext: context,
-                length: 5,
+                length: 6,
                 obscureText: false,
                 animationType: AnimationType.scale,
                 animationDuration: const Duration(milliseconds: 200),
@@ -73,6 +76,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     transition: Transition.zoom,
                   );
                 },
+                cursorColor: Colors.black,
                 textStyle: const TextStyle(
                   color: Colors.black,
                   fontSize: 25,
@@ -88,11 +92,29 @@ class _OtpScreenState extends State<OtpScreen> {
                   borderWidth: 1,
                   borderRadius: BorderRadius.circular(5),
                 ),
-                onChanged: (value) {
-                  if (value.length == 5) {
-                    Future.delayed(const Duration(milliseconds: 500), () {
-                      Get.to(const PermissionsScreen());
-                    });
+                onChanged: (value) async {
+                  if (value.length == 6) {
+                    // http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=919043561720&otp=999999
+                    var res = await http.get(Uri.parse(
+                        "http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=91${widget.phone}&otp=$value"));
+                    print(res.body);
+                    // Get.to(const PermissionsScreen());
+                    var jsonData = jsonDecode(res.body);
+                    if (jsonData['type'] == "success") {
+                      Get.to(
+                        const PermissionsScreen(),
+                        transition: Transition.zoom,
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(jsonData['message']),
+                        ),
+                      );
+                    }
+                    // Future.delayed(const Duration(milliseconds: 500), () {
+                    // Get.to(const PermissionsScreen());
+                    // });
                   }
                 },
               ),
