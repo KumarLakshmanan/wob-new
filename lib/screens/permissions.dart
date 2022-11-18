@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:wob/functions.dart';
 import 'package:wob/main/mainscreen.dart';
 
 class PermissionsScreen extends StatefulWidget {
@@ -151,9 +155,10 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
                         Text(
                           "Grant Permision",
                           style: TextStyle(
-                              color: Color(0xFF482482),
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700),
+                            color: Color(0xFF482482),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                         SizedBox(
                           width: 10,
@@ -165,11 +170,22 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
                       ],
                     ),
                   ),
-                  onTap: () {
-                    Get.to(
-                      const MainScreen(),
-                      transition: Transition.rightToLeft,
-                    );
+                  onTap: () async {
+                    try {
+                      var status = await Permission.location.request();
+                      var status2 = await Permission.phone.request();
+                      if (status.isGranted && status2.isGranted) {
+                        if (await getLocationTurnedOn()) {
+                          Get.to(
+                            const MainScreen(),
+                            transition: Transition.rightToLeft,
+                          );
+                          // print("permission granted");
+                        }
+                      }
+                    } on PlatformException catch (e) {
+                      print(e);
+                    }
                   },
                 ),
               ),

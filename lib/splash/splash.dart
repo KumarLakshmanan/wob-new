@@ -40,63 +40,63 @@ class _SplashState extends State<Splash> {
     });
     await Future.delayed(const Duration(seconds: 2));
     Map<String, dynamic> storeDetails = {};
-    var res = await http.post(
-        Uri.parse(
-            "http://13.126.36.241/datasnap/ASBMenuRest.dll/datasnap/rest/TASBMenuREST/login"),
-        body: jsonEncode({
-          "login": {
-            "axpapp": "lmmdm",
-            "username": "guest",
-            "password": "312e7f190310e1c817a125633f88569d",
-            "seed": "1983",
-            "other": "chrome",
-            "trace": "true"
-          }
-        }));
-    print(res.body);
-    String sessionId = jsonDecode(res.body)["result"][0]["result"]['s'];
-    print(sessionId);
-    await checkPermissions(() async {
-      // final prefs = await SharedPreferences.getInstance();
-      // print(prefs.getInt("distance"));
-      // print(prefs.getInt("emptyReq"));`
-      Get.to(
-        // const MainScreen(),
-        const OnboardingScreen(),
-        transition: Transition.rightToLeft,
-      );
-    });
+    // var res = await http.post(
+    //     Uri.parse(
+    //         "http://13.126.36.241/datasnap/ASBMenuRest.dll/datasnap/rest/TASBMenuREST/login"),
+    //     body: jsonEncode({
+    //       "login": {
+    //         "axpapp": "lmmdm",
+    //         "username": "guest",
+    //         "password": "312e7f190310e1c817a125633f88569d",
+    //         "seed": "1983",
+    //         "other": "chrome",
+    //         "trace": "true"
+    //       }
+    //     }));
+    // print(res.body);
+    // String sessionId = jsonDecode(res.body)["result"][0]["result"]['s'];
+    // print(sessionId);
+    // await checkPermissions(() async {
+    // final prefs = await SharedPreferences.getInstance();
+    // print(prefs.getInt("distance"));
+    // print(prefs.getInt("emptyReq"));`
+    Get.to(
+      // const MainScreen(),
+      const OnboardingScreen(),
+      transition: Transition.rightToLeft,
+    );
+    // });
   }
 
-  Future checkPermissions(Function onTap) async {
-    // if (kIsWeb) {
-    onTap();
-    // } else {
-    //   try {
-    //     var status = await Permission.location.request();
-    //     if (status.isGranted) {
-    //       Location location = Location();
-    //       bool serviceEnabled = await location.serviceEnabled();
-    //       if (!serviceEnabled) {
-    //         serviceEnabled = await location.requestService();
-    //         if (!serviceEnabled) {
-    //           serviceEnabled = await location.requestService();
-    //           if (!serviceEnabled) {
-    //             debugPrint('Location Denied once');
-    //           }
-    //         }
-    //       }
-    //       onTap();
-    //     } else if (status.isDenied) {
-    //       checkPermissions(onTap);
-    //     } else if (status.isPermanentlyDenied) {
-    //       openAppSettings();
-    //     }
-    //   } on PlatformException catch (e) {
-    //     print(e);
-    //   }
-    // }
-  }
+  // Future checkPermissions(Function onTap) async {
+  // if (kIsWeb) {
+  // onTap();
+  // } else {
+  //   try {
+  //     var status = await Permission.location.request();
+  //     if (status.isGranted) {
+  //       Location location = Location();
+  //       bool serviceEnabled = await location.serviceEnabled();
+  //       if (!serviceEnabled) {
+  //         serviceEnabled = await location.requestService();
+  //         if (!serviceEnabled) {
+  //           serviceEnabled = await location.requestService();
+  //           if (!serviceEnabled) {
+  //             debugPrint('Location Denied once');
+  //           }
+  //         }
+  //       }
+  //       onTap();
+  //     } else if (status.isDenied) {
+  //       checkPermissions(onTap);
+  //     } else if (status.isPermanentlyDenied) {
+  //       openAppSettings();
+  //     }
+  //   } on PlatformException catch (e) {
+  //     print(e);
+  //   }
+  // }
+  // }
 
   @override
   Widget build(BuildContext context) {

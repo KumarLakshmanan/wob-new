@@ -6,7 +6,10 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wob/controller/data_controller.dart';
 import 'package:wob/screens/permissions.dart';
+import 'package:wob/types/user_data.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phone;
@@ -17,6 +20,7 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  final dc = Get.put(DataController());
   int timer = 60;
   @override
   void initState() {
@@ -128,10 +132,60 @@ class _OtpScreenState extends State<OtpScreen> {
                         onChanged: (value) async {
                           if (value.length == 6) {
                             if (value == "999999") {
-                              Get.to(
-                                const PermissionsScreen(),
-                                transition: Transition.zoom,
-                              );
+                              var res = await http.post(
+                                  Uri.parse(
+                                      "http://13.126.36.241/datasnap/AsbIViewRest.dll/datasnap/rest/TASBIViewREST/getiview"),
+                                  body: jsonEncode(
+                                    {
+                                      "getiview": {
+                                        "name": "ivcuinf",
+                                        "axpapp": "lmmdm",
+                                        "username": "guest",
+                                        "password":
+                                            "312e7f190310e1c817a125633f88569d",
+                                        "seed": "1983",
+                                        "pageno": "1",
+                                        "pagesize": "100",
+                                        "sqlpagination": "true",
+                                        "params": {
+                                          "pmobile": widget.phone,
+                                        }
+                                      }
+                                    },
+                                  ));
+                              if (res.statusCode == 200) {
+                                var jsonData = jsonDecode(res.body);
+                                UserModule user = UserModule.fromJson(
+                                    jsonData['result'][0]['row'][0]);
+                                if (user.custid == "") {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        "This number is not registered with us",
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  dc.setUserModule(user);
+                                  dc.update();
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Login Successful"),
+                                    ),
+                                  );
+                                  Get.to(
+                                    const PermissionsScreen(),
+                                    transition: Transition.zoom,
+                                  );
+                                }
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Something went wrong"),
+                                  ),
+                                );
+                              }
                             } else {
                               // http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=919043561720&otp=999999
                               var res = await http.get(Uri.parse(

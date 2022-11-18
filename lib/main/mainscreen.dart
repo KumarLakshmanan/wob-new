@@ -15,6 +15,7 @@ import 'package:wob/home/home.dart';
 import 'package:wob/notifications/notifications.dart';
 import 'package:wob/offers/offers.dart';
 import 'package:wob/painter/chevron.dart';
+import 'package:wob/painter/round_slider_thumb.dart';
 import 'package:wob/painters/circularnotch.dart';
 import 'package:wob/qrscan/qrscan.dart';
 import 'package:wob/settings/settings.dart';
@@ -153,44 +154,6 @@ class _WobBottomSheetState extends State<WobBottomSheet> {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: SizedBox(
-              height: 25 + 20,
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 10,
-                    left: 0,
-                    right: 0,
-                    child: Center(
-                      child: Container(
-                        height: 5,
-                        width: 125,
-                        decoration: const BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(5),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Positioned(
-                    top: 10,
-                    right: 10,
-                    child: Icon(
-                      Icons.settings,
-                      color: Colors.black,
-                      size: 30,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
           ListView(
             shrinkWrap: true,
             children: [
@@ -293,20 +256,31 @@ class _WobBottomSheetState extends State<WobBottomSheet> {
                     Positioned(
                       top: 10,
                       left: 10,
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          gradient: const LinearGradient(
-                            colors: [
-                              Color(0xFF482D92),
-                              Color(0xFF622CAA),
-                            ],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
+                      right: 10,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            "assets/images/membership.png",
+                            height: 100,
                           ),
-                        ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 20 - 20,
+                            child: SliderTheme(
+                              child: Slider(
+                                value: 20,
+                                inactiveColor: const Color(0xFF3F1D7A),
+                                activeColor: const Color(0xFFFAAB1B),
+                                max: 100,
+                                onChanged: (double value) {},
+                              ),
+                              data: Theme.of(context).sliderTheme.copyWith(
+                                    trackHeight: 20.0,
+                                    overlappingShapeStrokeColor: Colors.red,
+                                  ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     Positioned(
@@ -450,6 +424,44 @@ class _WobBottomSheetState extends State<WobBottomSheet> {
                 ],
               ),
             ],
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: SizedBox(
+              height: 25 + 20,
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 10,
+                    left: 0,
+                    right: 0,
+                    child: Center(
+                      child: Container(
+                        height: 5,
+                        width: 125,
+                        decoration: const BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Icon(
+                      Icons.settings,
+                      color: Colors.black,
+                      size: 30,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wob/types/store_details.dart';
+import 'package:wob/types/user_data.dart';
 
 class DataController extends GetxController {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   bool darkMode = false;
+  UserModule? userModule;
   int distanceStore = 0;
   @override
   void onInit() async {
@@ -24,6 +26,12 @@ class DataController extends GetxController {
     bool _darkMode = pref.getBool('darkMode') ?? false;
     Get.changeThemeMode(_darkMode ? ThemeMode.dark : ThemeMode.light);
     darkMode = _darkMode;
+    update();
+  }
+
+  setUserModule(UserModule userModule) async {
+    SharedPreferences pref = await _prefs;
+    pref.setString('userModule', userModuleToJson(userModule));
     update();
   }
 
