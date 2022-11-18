@@ -53,7 +53,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Image.asset("assets/images/Subtract2.png"),
                 ),
                 Positioned(
-                  bottom: 80,
+                  bottom: isPortrait
+                      ? MediaQuery.of(context).size.width * 0.2
+                      : MediaQuery.of(context).size.width * 0.1,
                   child: Container(
                     padding: const EdgeInsets.only(right: 18, left: 18),
                     width: MediaQuery.of(context).size.width,
@@ -80,6 +82,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Positioned(
                   top: 0,
                   left: 0,
+                  bottom: isPortrait
+                      ? MediaQuery.of(context).size.width * 0.2
+                      : MediaQuery.of(context).size.width * 0.1,
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
@@ -93,17 +98,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       children: [
                         for (var i = 0; i < 4; i++)
                           Padding(
-                            padding: EdgeInsets.only(
-                              top: isPortrait
-                                  ? MediaQuery.of(context).size.height * 0.6
-                                  : MediaQuery.of(context).size.height * 0.2,
-                              right: 25,
-                              bottom: 25,
-                              left: 25,
-                            ),
+                            padding: const EdgeInsets.all(25),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: const [
+                                Spacer(),
                                 Text(
                                   "Get best offers in\nall brands",
                                   style: TextStyle(
@@ -118,6 +117,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 Text(
                                   "Everyone is welcome.Everyone has\nsomething to give.",
                                   style: TextStyle(color: Colors.white),
+                                ),
+                                SizedBox(
+                                  height: 20,
                                 ),
                               ],
                             ),

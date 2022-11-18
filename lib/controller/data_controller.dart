@@ -31,6 +31,7 @@ class DataController extends GetxController {
 
   setUserModule(UserModule userModule) async {
     SharedPreferences pref = await _prefs;
+    this.userModule = userModule;
     pref.setString('userModule', userModuleToJson(userModule));
     update();
   }

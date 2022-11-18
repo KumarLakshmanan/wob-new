@@ -3,7 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wob/controller/data_controller.dart';
+import 'package:wob/functions.dart';
+import 'package:wob/home/helpers/dialog.dart';
+import 'package:wob/main/mainscreen.dart';
 import 'package:wob/screens/onboarding.dart';
 
 class Splash extends StatefulWidget {
@@ -39,7 +43,6 @@ class _SplashState extends State<Splash> {
           : MediaQuery.of(context).size.width * 0.4;
     });
     await Future.delayed(const Duration(seconds: 2));
-    Map<String, dynamic> storeDetails = {};
     // var res = await http.post(
     //     Uri.parse(
     //         "http://13.126.36.241/datasnap/ASBMenuRest.dll/datasnap/rest/TASBMenuREST/login"),
@@ -60,11 +63,19 @@ class _SplashState extends State<Splash> {
     // final prefs = await SharedPreferences.getInstance();
     // print(prefs.getInt("distance"));
     // print(prefs.getInt("emptyReq"));`
-    Get.to(
-      // const MainScreen(),
-      const OnboardingScreen(),
-      transition: Transition.rightToLeft,
-    );
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getString("userModule") != null) {
+      await loadData();
+      Get.to(
+        const MainScreen(),
+        transition: Transition.rightToLeft,
+      );
+    } else {
+      Get.to(
+        const OnboardingScreen(),
+        transition: Transition.rightToLeft,
+      );
+    }
     // });
   }
 

@@ -1,27 +1,16 @@
 import 'dart:async';
-import 'dart:math';
-
+import 'package:barcode/barcode.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wob/constants.dart';
 import 'package:wob/controller/data_controller.dart';
 import 'package:wob/controller/navigation.dart';
-import 'package:wob/detect/detect.dart';
+import 'package:wob/functions.dart';
 import 'package:wob/home/home.dart';
-import 'package:wob/notifications/notifications.dart';
-import 'package:wob/offers/offers.dart';
 import 'package:wob/painter/chevron.dart';
 import 'package:wob/painter/round_slider_thumb.dart';
-import 'package:wob/painters/circularnotch.dart';
-import 'package:wob/qrscan/qrscan.dart';
-import 'package:wob/settings/settings.dart';
 import 'package:wob/types/store_details.dart';
-
-import '../widgets/button.dart';
 
 class MainScreen extends StatefulWidget {
   final StoreDetails? storeDetails;
@@ -46,6 +35,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    loadData();
   }
 
   @override
@@ -57,78 +47,82 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        onPageChanged: (index) {
-          nc.currentPage = index;
-        },
-        controller: nc.pageController,
-        children: const [
-          Home(),
-        ],
-      ),
-      bottomNavigationBar: GetBuilder(
-        init: NController(),
-        builder: (controller) {
-          return Container(
-            height: kBottomNavigationBarHeight + 10,
-            decoration: const BoxDecoration(
-              color: Colors.white,
+    return GetBuilder(
+        init: DataController(),
+        builder: (dccontroller) {
+          return Scaffold(
+            body: PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              onPageChanged: (index) {
+                nc.currentPage = index;
+              },
+              controller: nc.pageController,
+              children: const [
+                Home(),
+              ],
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: CustomPaint(
-              painter: BottomBarCurve(),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  const SizedBox(width: 40),
-                  IconButton(
-                    icon: Image.asset(
-                      "assets/icons/home.png",
-                    ),
-                    onPressed: () {},
+            bottomNavigationBar: GetBuilder(
+              init: NController(),
+              builder: (controller) {
+                return Container(
+                  height: kBottomNavigationBarHeight + 10,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
                   ),
-                  IconButton(
-                    icon: Image.asset(
-                      "assets/icons/scan.png",
-                    ),
-                    onPressed: () {
-                      showModalBottomSheet(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: CustomPaint(
+                    painter: BottomBarCurve(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        const SizedBox(width: 40),
+                        IconButton(
+                          icon: Image.asset(
+                            "assets/icons/home.png",
                           ),
+                          onPressed: () {},
                         ),
-                        enableDrag: true,
-                        isScrollControlled: true,
-                        context: context,
-                        isDismissible: true,
-                        elevation: 10,
-                        backgroundColor: Colors.white,
-                        builder: (builder) {
-                          return const WobBottomSheet();
-                        },
-                      );
-                    },
-                  ),
-                  IconButton(
-                    icon: Image.asset(
-                      "assets/icons/alcoverse.png",
+                        IconButton(
+                          icon: Image.asset(
+                            "assets/icons/scan.png",
+                          ),
+                          onPressed: () {
+                            showModalBottomSheet(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                ),
+                              ),
+                              enableDrag: true,
+                              isScrollControlled: true,
+                              context: context,
+                              isDismissible: true,
+                              elevation: 10,
+                              backgroundColor: Colors.white,
+                              builder: (builder) {
+                                return const WobBottomSheet();
+                              },
+                            );
+                          },
+                        ),
+                        IconButton(
+                          icon: Image.asset(
+                            "assets/icons/alcoverse.png",
+                          ),
+                          onPressed: () {},
+                        ),
+                        const SizedBox(width: 40),
+                      ],
                     ),
-                    onPressed: () {},
                   ),
-                  const SizedBox(width: 40),
-                ],
-              ),
+                );
+              },
             ),
+            extendBody: true,
+            extendBodyBehindAppBar: true,
           );
-        },
-      ),
-      extendBody: true,
-      extendBodyBehindAppBar: true,
-    );
+        });
   }
 }
 
@@ -144,6 +138,7 @@ class WobBottomSheet extends StatefulWidget {
 class _WobBottomSheetState extends State<WobBottomSheet> {
   @override
   Widget build(BuildContext context) {
+    final dc = Get.put(DataController());
     List<String> scrolls = [
       "29 offers claimed",
       "59000 points",
@@ -229,8 +224,9 @@ class _WobBottomSheetState extends State<WobBottomSheet> {
                 ],
               ),
               Container(
-                height: 255,
+                height: 260,
                 margin: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   gradient: const LinearGradient(
@@ -262,23 +258,109 @@ class _WobBottomSheetState extends State<WobBottomSheet> {
                         children: [
                           Image.asset(
                             "assets/images/membership.png",
-                            height: 100,
+                            height: 75,
                           ),
+                          const SizedBox(height: 5),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width - 20 - 20,
-                            child: SliderTheme(
-                              child: Slider(
-                                value: 20,
-                                inactiveColor: const Color(0xFF3F1D7A),
-                                activeColor: const Color(0xFFFAAB1B),
-                                max: 100,
-                                onChanged: (double value) {},
-                              ),
-                              data: Theme.of(context).sliderTheme.copyWith(
-                                    trackHeight: 20.0,
-                                    overlappingShapeStrokeColor: Colors.red,
+                            height: 40,
+                            child: Stack(
+                              children: [
+                                SliderTheme(
+                                  data: SliderThemeData(
+                                    trackShape: CustomTrackShape(),
+                                    trackHeight: 4,
                                   ),
+                                  child: Slider(
+                                    value: 40,
+                                    inactiveColor: const Color(0xFF3F1D7A),
+                                    activeColor: const Color(0xFFFAAB1B),
+                                    max: 100,
+                                    onChanged: (double value) {},
+                                  ),
+                                ),
+                                const Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  child: Text(
+                                    "Shop for 3000 more to upgrade to gold",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 6,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
+                          ),
+                          const SizedBox(height: 10),
+                          LayoutBuilder(
+                            builder: (BuildContext context,
+                                BoxConstraints constraints) {
+                              final boxWidth = constraints.constrainWidth();
+                              const dashWidth = 10.0;
+                              final dashCount =
+                                  (boxWidth / (1.5 * dashWidth)).floor();
+                              return Flex(
+                                children: List.generate(dashCount, (_) {
+                                  return const SizedBox(
+                                    width: dashWidth,
+                                    height: 2,
+                                    child: DecoratedBox(
+                                      decoration:
+                                          BoxDecoration(color: Colors.white),
+                                    ),
+                                  );
+                                }),
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                direction: Axis.horizontal,
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          if (dc.userModule.runtimeType != Null)
+                            Text(
+                              dc.userModule!.firstname +
+                                  " " +
+                                  dc.userModule!.lastname,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              SizedBox(
+                                height: 50,
+                                width: MediaQuery.of(context).size.width / 1.5,
+                                child: LayoutBuilder(
+                                  builder: (context, constraints) {
+                                    var bc = Barcode.code128();
+                                    var svg = bc.toSvg(
+                                      dc.userModule!.custid,
+                                      width: MediaQuery.of(context).size.width /
+                                          1.5,
+                                      height: 50,
+                                      color: 0xFFFFFFFF,
+                                      drawText: false,
+                                      fontHeight: 10,
+                                    );
+                                    return SvgPicture.string(
+                                      svg,
+                                    );
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                child: Image.asset(
+                                  "assets/images/sensor.png",
+                                  height: 50,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -286,8 +368,8 @@ class _WobBottomSheetState extends State<WobBottomSheet> {
                     Positioned(
                       child: Center(
                         child: Container(
-                          height: 40,
-                          width: 40,
+                          height: 30,
+                          width: 30,
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
@@ -295,14 +377,14 @@ class _WobBottomSheetState extends State<WobBottomSheet> {
                         ),
                       ),
                       bottom: 0,
-                      left: -20,
+                      left: -25,
                       top: 0,
                     ),
                     Positioned(
                       child: Center(
                         child: Container(
-                          height: 40,
-                          width: 40,
+                          height: 30,
+                          width: 30,
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
@@ -310,14 +392,15 @@ class _WobBottomSheetState extends State<WobBottomSheet> {
                         ),
                       ),
                       bottom: 0,
-                      right: -20,
+                      right: -25,
                       top: 0,
                     ),
                   ],
                 ),
               ),
+              const SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: InkWell(
                   child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -348,12 +431,7 @@ class _WobBottomSheetState extends State<WobBottomSheet> {
                       ],
                     ),
                   ),
-                  onTap: () {
-                    Get.to(
-                      const MainScreen(),
-                      transition: Transition.rightToLeft,
-                    );
-                  },
+                  onTap: () {},
                 ),
               ),
               const Padding(

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -172,15 +173,21 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
                   ),
                   onTap: () async {
                     try {
-                      var status = await Permission.location.request();
-                      var status2 = await Permission.phone.request();
-                      if (status.isGranted && status2.isGranted) {
-                        if (await getLocationTurnedOn()) {
-                          Get.to(
-                            const MainScreen(),
-                            transition: Transition.rightToLeft,
-                          );
-                          // print("permission granted");
+                      if (kIsWeb) {
+                        Get.to(
+                          const MainScreen(),
+                          transition: Transition.rightToLeft,
+                        );
+                      } else {
+                        var status = await Permission.location.request();
+                        var status2 = await Permission.phone.request();
+                        if (status.isGranted && status2.isGranted) {
+                          if (await getLocationTurnedOn()) {
+                            Get.to(
+                              const MainScreen(),
+                              transition: Transition.rightToLeft,
+                            );
+                          }
                         }
                       }
                     } on PlatformException catch (e) {
