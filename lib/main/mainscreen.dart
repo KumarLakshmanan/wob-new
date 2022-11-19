@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 import 'package:wob/controller/data_controller.dart';
 import 'package:wob/controller/navigation.dart';
 import 'package:wob/functions.dart';
@@ -286,7 +287,7 @@ class _WobBottomSheetState extends State<WobBottomSheet> {
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 6,
+                                      fontSize: 8,
                                     ),
                                   ),
                                 )
@@ -348,8 +349,33 @@ class _WobBottomSheetState extends State<WobBottomSheet> {
                                       drawText: false,
                                       fontHeight: 10,
                                     );
-                                    return SvgPicture.string(
-                                      svg,
+                                    return GestureDetector(
+                                      onTap: () async {
+                                        await ScreenBrightness()
+                                            .setScreenBrightness(1);
+                                        var result = await Get.dialog(
+                                          SizedBox(
+                                            height: 50,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            child: SvgPicture.string(
+                                              svg,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          barrierColor:
+                                              Colors.black.withOpacity(0.9),
+                                        );
+                                        await ScreenBrightness()
+                                            .resetScreenBrightness();
+                                      },
+                                      child: Hero(
+                                        tag: "barcode",
+                                        child: SvgPicture.string(
+                                          svg,
+                                        ),
+                                      ),
                                     );
                                   },
                                 ),

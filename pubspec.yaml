@@ -35,6 +35,7 @@ dependencies:
   bordered_text: ^2.0.0
   barcode: ^2.2.3
   flutter_svg: ^1.1.6
+  screen_brightness: ^0.2.2
 
 dev_dependencies:
   flutter_test:
