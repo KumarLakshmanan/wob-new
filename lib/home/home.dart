@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:wob/controller/data_controller.dart';
 import 'package:wob/controller/navigation.dart';
+import 'package:wob/explore/explore_store.dart';
 import 'package:wob/lottery/jackpot.dart';
 import 'package:wob/widgets/offer_card.dart';
 
@@ -23,61 +25,6 @@ class _HomeState extends State<Home> {
     double width = MediaQuery.of(context).size.width;
     double sizeOfBox = width * 0.4;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 40,
-                child: MaterialButton(
-                  onPressed: () {},
-                  color: const Color(0xFF482D92),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Text(
-                    'Refer & Earn',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy',
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-        ],
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: const [
-            Icon(
-              Icons.home_rounded,
-              color: Colors.black,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              'Kalyannagar, Bangalore.',
-              style: TextStyle(
-                fontSize: 14,
-                fontFamily: 'Gilroy',
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-      ),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -87,25 +34,92 @@ class _HomeState extends State<Home> {
             ListView(
               physics: const ClampingScrollPhysics(),
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF3F1D7A).withOpacity(0.05),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
+                const SizedBox(
+                  height: 50,
+                ),
+                AppBar(
+                  systemOverlayStyle: const SystemUiOverlayStyle(
+                    statusBarColor: Colors.white,
+                    statusBarIconBrightness: Brightness.dark,
+                  ),
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  actions: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(width: 10),
-                        const Icon(Icons.search),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Search brands, stores',
-                              hintStyle: TextStyle(
+                        SizedBox(
+                          height: 40,
+                          child: MaterialButton(
+                            onPressed: () {},
+                            color: const Color(0xFF482D92),
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: const Text(
+                              'Refer & Earn',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy',
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                  ],
+                  automaticallyImplyLeading: false,
+                  title: Row(
+                    children: const [
+                      Icon(
+                        Icons.home_rounded,
+                        color: Colors.black,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Kalyannagar, Bangalore.',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Gilroy',
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(
+                      () => const ExploreStore(),
+                      transition: Transition.rightToLeft,
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF3F1D7A).withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        children: const [
+                          SizedBox(width: 10),
+                          Icon(Icons.search),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              'Search brands, stores',
+                              style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.black,
                                 fontFamily: 'Gilroy',
@@ -113,8 +127,8 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -234,7 +248,7 @@ class _HomeState extends State<Home> {
                       ),
                       const SizedBox(height: 10),
                       const Text(
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                        "Lorem Ipsum is simply dummy text of the printing\nand typesetting industry.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12,
