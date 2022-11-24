@@ -44,6 +44,7 @@ class _ExploreStoreState extends State<ExploreStore> {
         ),
       ),
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         children: [
           for (int i = 0; i < 4; i++)
             Container(

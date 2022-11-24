@@ -3,6 +3,7 @@ import 'package:barcode/barcode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:wob/explore/explore_store.dart';
 import 'package:get/get.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:wob/controller/data_controller.dart';
@@ -60,6 +61,7 @@ class _MainScreenState extends State<MainScreen> {
               controller: nc.pageController,
               children: const [
                 Home(),
+                ExploreStore(),
               ],
             ),
             bottomNavigationBar: GetBuilder(
@@ -81,7 +83,15 @@ class _MainScreenState extends State<MainScreen> {
                           icon: Image.asset(
                             "assets/icons/home.png",
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            nc.pageController.animateToPage(
+                              0,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeIn,
+                            );
+                            nc.currentPage = 0;
+                            nc.update();
+                          },
                         ),
                         IconButton(
                           icon: Image.asset(
@@ -111,7 +121,19 @@ class _MainScreenState extends State<MainScreen> {
                           icon: Image.asset(
                             "assets/icons/alcoverse.png",
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(
+                              const ExploreStore(),
+                              transition: Transition.rightToLeft,
+                            );
+                            // nc.pageController.animateToPage(
+                            //   1,
+                            //   duration: const Duration(milliseconds: 300),
+                            //   curve: Curves.easeIn,
+                            // );
+                            // nc.currentPage = 1;
+                            // nc.update();
+                          },
                         ),
                         const SizedBox(width: 40),
                       ],

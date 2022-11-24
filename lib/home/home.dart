@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:wob/controller/data_controller.dart';
 import 'package:wob/controller/navigation.dart';
-import 'package:wob/explore/explore_store.dart';
 import 'package:wob/lottery/jackpot.dart';
 import 'package:wob/widgets/offer_card.dart';
 
@@ -97,12 +96,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Get.to(
-                      () => const ExploreStore(),
-                      transition: Transition.rightToLeft,
-                    );
-                  },
+                  onTap: () {},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(

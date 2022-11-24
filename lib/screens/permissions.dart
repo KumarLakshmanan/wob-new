@@ -90,10 +90,10 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
                   height: 20,
                 ),
                 PermissionCard(
-                  image: "assets/images/phone.png",
-                  title: "phone state permission",
+                  image: "assets/images/bluetooth.png",
+                  title: "bluetooth permission",
                   subTitle:
-                      "we need this permission to ensure the SIM card in your phone and your registered phone number match",
+                      "we need this permission to connect your device to nearby WOB store to get the offers and discounts",
                   ontap: () {},
                 ),
                 Container(
@@ -231,6 +231,7 @@ class PermissionCard extends StatelessWidget {
             Image.asset(
               image,
               width: 30,
+              color: const Color(0xFFd9896a),
             ),
             const SizedBox(
               width: 15,
