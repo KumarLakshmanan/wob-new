@@ -180,7 +180,7 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
                         );
                       } else {
                         var status = await Permission.location.request();
-                        var status2 = await Permission.phone.request();
+                        var status2 = await Permission.bluetoothScan.request();
                         if (status.isGranted && status2.isGranted) {
                           if (await getLocationTurnedOn()) {
                             Get.to(

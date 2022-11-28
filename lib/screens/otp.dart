@@ -64,6 +64,16 @@ class _OtpScreenState extends State<OtpScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+            statusBarIconBrightness: Brightness.dark,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        extendBodyBehindAppBar: true,
         body: Padding(
           padding: EdgeInsets.only(
             left: 18,
@@ -106,12 +116,6 @@ class _OtpScreenState extends State<OtpScreen> {
                           FilteringTextInputFormatter.digitsOnly,
                         ],
                         textInputAction: TextInputAction.done,
-                        onSubmitted: (value) {
-                          Get.to(
-                            const PermissionsScreen(),
-                            transition: Transition.zoom,
-                          );
-                        },
                         cursorColor: Colors.black,
                         textStyle: const TextStyle(
                           color: Colors.black,
@@ -176,7 +180,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                   );
                                   Get.to(
                                     const PermissionsScreen(),
-                                    transition: Transition.zoom,
+                                    transition: Transition.rightToLeft,
                                   );
                                 }
                               } else {
@@ -191,12 +195,11 @@ class _OtpScreenState extends State<OtpScreen> {
                               var res = await http.get(Uri.parse(
                                   "http://api.msg91.com/api/verifyRequestOTP.php?authkey=384899A1E1CbhM636def3bP1&mobile=91${widget.phone}&otp=$value"));
                               print(res.body);
-                              // Get.to(const PermissionsScreen());
                               var jsonData = jsonDecode(res.body);
                               if (jsonData['type'] == "success") {
                                 Get.to(
                                   const PermissionsScreen(),
-                                  transition: Transition.zoom,
+                                  transition: Transition.rightToLeft,
                                 );
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -205,9 +208,6 @@ class _OtpScreenState extends State<OtpScreen> {
                                   ),
                                 );
                               }
-                              // Future.delayed(const Duration(milliseconds: 500), () {
-                              // Get.to(const PermissionsScreen());
-                              // });
                             }
                           }
                         },

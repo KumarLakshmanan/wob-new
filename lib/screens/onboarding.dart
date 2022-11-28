@@ -53,37 +53,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Image.asset("assets/images/Subtract2.png"),
                 ),
                 Positioned(
-                  bottom: isPortrait
-                      ? MediaQuery.of(context).size.width * 0.2
-                      : MediaQuery.of(context).size.width * 0.1,
-                  child: Container(
-                    padding: const EdgeInsets.only(right: 18, left: 18),
-                    width: MediaQuery.of(context).size.width,
-                    height: 30,
-                    child: Row(
-                      children: [
-                        for (int i = 0; i < 4; i++)
-                          Expanded(
-                            child: Container(
-                              height: i == currentPage ? 6 : 2,
-                              margin: const EdgeInsets.only(right: 5, left: 5),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: i == currentPage
-                                    ? const Color(0xFFFDDD00)
-                                    : const Color(0xFF979797),
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
                   top: 0,
                   left: 0,
                   bottom: isPortrait
-                      ? MediaQuery.of(context).size.width * 0.2
+                      ? MediaQuery.of(context).size.width * 0.225
                       : MediaQuery.of(context).size.width * 0.1,
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height,
@@ -115,7 +88,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   height: 6,
                                 ),
                                 Text(
-                                  "Everyone is welcome.Everyone has\nsomething to give.",
+                                  "Everyone is welcome. Everyone has\nsomething to give.",
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 SizedBox(
@@ -130,51 +103,76 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 Positioned(
                   bottom: isPortrait
-                      ? -MediaQuery.of(context).size.width * 0.8
+                      ? -MediaQuery.of(context).size.width * 0.75
                       : -MediaQuery.of(context).size.width * 0.9,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(1000),
-                    child: Ink(
-                      height: MediaQuery.of(context).size.width,
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.width * 0.05,
-                      ),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFFAAB1B),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Align(
-                        alignment: Alignment.topCenter,
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(right: 18, left: 18),
+                        width: MediaQuery.of(context).size.width,
+                        height: 30,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              "Get Started",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                fontFamily: "Gilroy",
+                          children: [
+                            for (int i = 0; i < 4; i++)
+                              Expanded(
+                                child: Container(
+                                  height: i == currentPage ? 6 : 2,
+                                  margin:
+                                      const EdgeInsets.only(right: 5, left: 5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: i == currentPage
+                                        ? const Color(0xFFFDDD00)
+                                        : const Color(0xFF979797),
+                                  ),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Icon(
-                              Icons.arrow_right_alt_sharp,
-                              color: Colors.black,
-                            ),
                           ],
                         ),
                       ),
-                    ),
-                    onTap: () {
-                      Get.to(
-                        const LogInScreen(),
-                        transition: Transition.rightToLeft,
-                      );
-                    },
+                      InkWell(
+                        borderRadius: BorderRadius.circular(1000),
+                        child: Ink(
+                          height: MediaQuery.of(context).size.width,
+                          width: MediaQuery.of(context).size.width,
+                          padding: const EdgeInsets.all(25),
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFFAAB1B),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  "Get Started",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    fontFamily: "Gilroy",
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(
+                                  Icons.arrow_right_alt_sharp,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          Get.to(
+                            const LogInScreen(),
+                            transition: Transition.rightToLeft,
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ],

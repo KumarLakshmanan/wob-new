@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -76,42 +77,20 @@ class _SplashState extends State<Splash> {
         transition: Transition.rightToLeft,
       );
     }
-    // });
   }
-
-  // Future checkPermissions(Function onTap) async {
-  // if (kIsWeb) {
-  // onTap();
-  // } else {
-  //   try {
-  //     var status = await Permission.location.request();
-  //     if (status.isGranted) {
-  //       Location location = Location();
-  //       bool serviceEnabled = await location.serviceEnabled();
-  //       if (!serviceEnabled) {
-  //         serviceEnabled = await location.requestService();
-  //         if (!serviceEnabled) {
-  //           serviceEnabled = await location.requestService();
-  //           if (!serviceEnabled) {
-  //             debugPrint('Location Denied once');
-  //           }
-  //         }
-  //       }
-  //       onTap();
-  //     } else if (status.isDenied) {
-  //       checkPermissions(onTap);
-  //     } else if (status.isPermanentlyDenied) {
-  //       openAppSettings();
-  //     }
-  //   } on PlatformException catch (e) {
-  //     print(e);
-  //   }
-  // }
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
+        ),
+      ),
+      extendBodyBehindAppBar: true,
       body: Container(
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width,

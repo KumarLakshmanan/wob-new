@@ -46,40 +46,16 @@ class _LogInScreenState extends State<LogInScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        // appBar: AppBar(
-        //   backgroundColor: Colors.transparent,
-        //   elevation: 0,
-        //   leading: null,
-        //   automaticallyImplyLeading: false,
-        //   actions: [
-        //     Center(
-        //       child: Padding(
-        //         padding: const EdgeInsets.only(right: 10),
-        //         child: InkWell(
-        //           onTap: () {
-        //             Get.to(
-        //               const PermissionsScreen(),
-        //               transition: Transition.rightToLeft,
-        //             );
-        //           },
-        //           child: const Padding(
-        //             padding: EdgeInsets.all(8.0),
-        //             child: Text(
-        //               "Skip",
-        //               style: TextStyle(
-        //                 color: Color(0xFF482D92),
-        //                 fontSize: 14,
-        //                 decoration: TextDecoration.underline,
-        //                 decorationStyle: TextDecorationStyle.dotted,
-        //                 fontWeight: FontWeight.bold,
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+            statusBarIconBrightness: Brightness.dark,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        extendBodyBehindAppBar: true,
         body: Padding(
           padding: EdgeInsets.only(
             left: 18,
