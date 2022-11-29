@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:barcode/barcode.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,4 +46,8 @@ void buildBarcode(
   // Save the image
   filename ??= bc.name.replaceAll(RegExp(r'\s'), '-').toLowerCase();
   File('$filename.svg').writeAsStringSync(svg);
+}
+
+isPortrait(context) {
+  return MediaQuery.of(context).orientation == Orientation.portrait;
 }

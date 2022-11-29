@@ -172,26 +172,22 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
                     ),
                   ),
                   onTap: () async {
-                    try {
-                      if (kIsWeb) {
-                        Get.to(
-                          const MainScreen(),
-                          transition: Transition.rightToLeft,
-                        );
-                      } else {
-                        var status = await Permission.location.request();
-                        var status2 = await Permission.bluetoothScan.request();
-                        if (status.isGranted && status2.isGranted) {
-                          if (await getLocationTurnedOn()) {
-                            Get.to(
-                              const MainScreen(),
-                              transition: Transition.rightToLeft,
-                            );
-                          }
+                    if (kIsWeb) {
+                      Get.to(
+                        const MainScreen(),
+                        transition: Transition.rightToLeft,
+                      );
+                    } else {
+                      var status = await Permission.location.request();
+                      var status2 = await Permission.bluetoothScan.request();
+                      if (status.isGranted && status2.isGranted) {
+                        if (await getLocationTurnedOn()) {
+                          Get.to(
+                            const MainScreen(),
+                            transition: Transition.rightToLeft,
+                          );
                         }
                       }
-                    } on PlatformException catch (e) {
-                      print(e);
                     }
                   },
                 ),

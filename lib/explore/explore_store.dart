@@ -22,7 +22,7 @@ class _ExploreStoreState extends State<ExploreStore> {
             Get.back();
           },
           icon: const Icon(
-            Icons.arrow_back_ios,
+            Icons.arrow_back_ios_new,
             color: Colors.black,
           ),
         ),
@@ -96,7 +96,7 @@ class _ExploreStoreState extends State<ExploreStore> {
                             );
                           },
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
+                            horizontal: 15,
                             vertical: 5,
                           ),
                           color: const Color(0xFF41247B),

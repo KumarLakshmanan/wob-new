@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wob/controller/data_controller.dart';
+import 'package:wob/explore/explore_offer.dart';
 import 'package:wob/functions.dart';
 import 'package:wob/home/helpers/dialog.dart';
 import 'package:wob/main/mainscreen.dart';
@@ -68,7 +69,8 @@ class _SplashState extends State<Splash> {
     if (prefs.getString("userModule") != null) {
       await loadData();
       Get.to(
-        const MainScreen(),
+        // const MainScreen(),
+        const ExploreOffers(),
         transition: Transition.rightToLeft,
       );
     } else {
