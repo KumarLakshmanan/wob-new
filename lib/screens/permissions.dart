@@ -24,6 +24,10 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
         automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.transparent,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+        ),
         actions: [
           Center(
             child: Padding(
@@ -31,7 +35,7 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
               child: InkWell(
                 onTap: () {
                   Get.to(
-                    const PermissionsScreen(),
+                    const MainScreen(),
                     transition: Transition.rightToLeft,
                   );
                 },
@@ -178,8 +182,8 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
                         transition: Transition.rightToLeft,
                       );
                     } else {
-                      var status = await Permission.location.request();
                       var status2 = await Permission.bluetoothScan.request();
+                      var status = await Permission.location.request();
                       if (status.isGranted && status2.isGranted) {
                         if (await getLocationTurnedOn()) {
                           Get.to(

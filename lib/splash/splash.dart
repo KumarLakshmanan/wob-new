@@ -11,6 +11,7 @@ import 'package:wob/functions.dart';
 import 'package:wob/home/helpers/dialog.dart';
 import 'package:wob/main/mainscreen.dart';
 import 'package:wob/screens/onboarding.dart';
+import 'package:wob/screens/user_details.dart';
 
 class Splash extends StatefulWidget {
   final bool isLogOut;
@@ -69,8 +70,10 @@ class _SplashState extends State<Splash> {
     if (prefs.getString("userModule") != null) {
       await loadData();
       Get.to(
+        // const UserDetails(),
         // const MainScreen(),
-        const ExploreOffers(),
+        const OnboardingScreen(),
+        // const ExploreOffers(),
         transition: Transition.rightToLeft,
       );
     } else {

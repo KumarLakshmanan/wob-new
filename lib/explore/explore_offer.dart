@@ -208,7 +208,7 @@ class _ExploreOffersState extends State<ExploreOffers> {
                 direction: Axis.horizontal,
                 directionMarguee: DirectionMarguee.oneDirection,
                 pauseDuration: const Duration(seconds: 0),
-                animationDuration: const Duration(seconds: 6 * 10),
+                animationDuration: const Duration(seconds: 8 * 10),
               ),
             ),
             const SizedBox(height: 10),

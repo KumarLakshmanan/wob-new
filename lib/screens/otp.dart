@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wob/controller/data_controller.dart';
 import 'package:wob/screens/permissions.dart';
+import 'package:wob/screens/user_details.dart';
 import 'package:wob/types/user_data.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -179,7 +180,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                     ),
                                   );
                                   Get.to(
-                                    const PermissionsScreen(),
+                                    UserDetails(phone: widget.phone),
                                     transition: Transition.rightToLeft,
                                   );
                                 }
@@ -198,7 +199,7 @@ class _OtpScreenState extends State<OtpScreen> {
                               var jsonData = jsonDecode(res.body);
                               if (jsonData['type'] == "success") {
                                 Get.to(
-                                  const PermissionsScreen(),
+                                  UserDetails(phone: widget.phone),
                                   transition: Transition.rightToLeft,
                                 );
                               } else {

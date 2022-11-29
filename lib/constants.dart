@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 MaterialColor primaryColor = const MaterialColor(
-  0xFF482D92,
+  0xFF482482,
   <int, Color>{
-    50: Color(0xFF482D92),
-    100: Color(0xFF482D92),
-    200: Color(0xFF482D92),
-    300: Color(0xFF482D92),
-    400: Color(0xFF482D92),
-    500: Color(0xFF482D92),
-    600: Color(0xFF482D92),
-    700: Color(0xFF482D92),
-    800: Color(0xFF482D92),
-    900: Color(0xFF482D92),
+    50: Color(0xFF482482),
+    100: Color(0xFF482482),
+    200: Color(0xFF482482),
+    300: Color(0xFF482482),
+    400: Color(0xFF482482),
+    500: Color(0xFF482482),
+    600: Color(0xFF482482),
+    700: Color(0xFF482482),
+    800: Color(0xFF482482),
+    900: Color(0xFF482482),
   },
 );
 
@@ -118,166 +118,129 @@ class ThemeColors {
   final Color fieldColor;
 }
 
-
 List lightMapStyle = [];
 List darkMapStyle = [
   {
     "elementType": "geometry",
     "stylers": [
-      {
-        "color": "#242f3e"
-      }
+      {"color": "#242f3e"}
     ]
   },
   {
     "elementType": "labels.text.fill",
     "stylers": [
-      {
-        "color": "#746855"
-      }
+      {"color": "#746855"}
     ]
   },
   {
     "elementType": "labels.text.stroke",
     "stylers": [
-      {
-        "color": "#242f3e"
-      }
+      {"color": "#242f3e"}
     ]
   },
   {
     "featureType": "administrative.locality",
     "elementType": "labels.text.fill",
     "stylers": [
-      {
-        "color": "#d59563"
-      }
+      {"color": "#d59563"}
     ]
   },
   {
     "featureType": "poi",
     "elementType": "labels.text.fill",
     "stylers": [
-      {
-        "color": "#d59563"
-      }
+      {"color": "#d59563"}
     ]
   },
   {
     "featureType": "poi.park",
     "elementType": "geometry",
     "stylers": [
-      {
-        "color": "#263c3f"
-      }
+      {"color": "#263c3f"}
     ]
   },
   {
     "featureType": "poi.park",
     "elementType": "labels.text.fill",
     "stylers": [
-      {
-        "color": "#6b9a76"
-      }
+      {"color": "#6b9a76"}
     ]
   },
   {
     "featureType": "road",
     "elementType": "geometry",
     "stylers": [
-      {
-        "color": "#38414e"
-      }
+      {"color": "#38414e"}
     ]
   },
   {
     "featureType": "road",
     "elementType": "geometry.stroke",
     "stylers": [
-      {
-        "color": "#212a37"
-      }
+      {"color": "#212a37"}
     ]
   },
   {
     "featureType": "road",
     "elementType": "labels.text.fill",
     "stylers": [
-      {
-        "color": "#9ca5b3"
-      }
+      {"color": "#9ca5b3"}
     ]
   },
   {
     "featureType": "road.highway",
     "elementType": "geometry",
     "stylers": [
-      {
-        "color": "#746855"
-      }
+      {"color": "#746855"}
     ]
   },
   {
     "featureType": "road.highway",
     "elementType": "geometry.stroke",
     "stylers": [
-      {
-        "color": "#1f2835"
-      }
+      {"color": "#1f2835"}
     ]
   },
   {
     "featureType": "road.highway",
     "elementType": "labels.text.fill",
     "stylers": [
-      {
-        "color": "#f3d19c"
-      }
+      {"color": "#f3d19c"}
     ]
   },
   {
     "featureType": "transit",
     "elementType": "geometry",
     "stylers": [
-      {
-        "color": "#2f3948"
-      }
+      {"color": "#2f3948"}
     ]
   },
   {
     "featureType": "transit.station",
     "elementType": "labels.text.fill",
     "stylers": [
-      {
-        "color": "#d59563"
-      }
+      {"color": "#d59563"}
     ]
   },
   {
     "featureType": "water",
     "elementType": "geometry",
     "stylers": [
-      {
-        "color": "#17263c"
-      }
+      {"color": "#17263c"}
     ]
   },
   {
     "featureType": "water",
     "elementType": "labels.text.fill",
     "stylers": [
-      {
-        "color": "#515c6d"
-      }
+      {"color": "#515c6d"}
     ]
   },
   {
     "featureType": "water",
     "elementType": "labels.text.stroke",
     "stylers": [
-      {
-        "color": "#17263c"
-      }
+      {"color": "#17263c"}
     ]
   }
 ];

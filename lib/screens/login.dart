@@ -141,7 +141,9 @@ class _LogInScreenState extends State<LogInScreen> {
                   ),
                 ),
                 Positioned(
-                  bottom: 0,
+                  bottom: 10,
+                  left: 10,
+                  right: 10,
                   child: KeyboardVisibilityBuilder(
                     builder: (p0, isKeyboardVisible) {
                       return isKeyboardVisible && !isPortrait
@@ -169,11 +171,8 @@ class _LogInScreenState extends State<LogInScreen> {
                                   ],
                                 ),
                                 Container(
-                                  width: MediaQuery.of(context).size.width - 50,
-                                  height: !isPortrait
-                                      ? 50
-                                      : MediaQuery.of(context).size.height *
-                                          0.082,
+                                  width: MediaQuery.of(context).size.width,
+                                  height: !isPortrait ? 50 : 60,
                                   decoration: BoxDecoration(
                                     color: otpBgColor,
                                     borderRadius: BorderRadius.circular(60),
