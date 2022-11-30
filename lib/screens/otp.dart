@@ -72,6 +72,8 @@ class _OtpScreenState extends State<OtpScreen> {
             statusBarColor: Colors.white,
             statusBarIconBrightness: Brightness.dark,
           ),
+          automaticallyImplyLeading: false,
+          leading: null,
         ),
         backgroundColor: Colors.white,
         extendBodyBehindAppBar: true,

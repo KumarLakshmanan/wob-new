@@ -53,6 +53,8 @@ class _LogInScreenState extends State<LogInScreen> {
             statusBarColor: Colors.white,
             statusBarIconBrightness: Brightness.dark,
           ),
+          automaticallyImplyLeading: false,
+          leading: null,
         ),
         backgroundColor: Colors.white,
         extendBodyBehindAppBar: true,
